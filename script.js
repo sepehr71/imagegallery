@@ -2,6 +2,7 @@ let piclength= 33;
 let page = 1;
 let pagesearch = 1;
 let equlizer=0;
+
 function clearpage()
 {
     var elem = document.querySelector('#masonary').innerHTML="";
@@ -16,10 +17,24 @@ request.onload = function()
 {
     for(var i=0;i<piclength;i++)
     {
-       let requestresponse = request.response[i]['download_url'];
-       let choice = document.createElement('img');
-       choice.src=requestresponse;
-       document.querySelector('#masonary').appendChild(choice);
+       
+       let requestresponse1 = request.response[i]['download_url'];
+       let requestresponse2 = request.response[i]['url'];
+       let card = document.createElement('div');
+       card.setAttribute("id" , "container");
+       let image = document.createElement('img');
+       image.setAttribute("id","images");
+       let shareicon = document.createElement('button');
+       shareicon.setAttribute("id", "sharepicbutton");
+       
+       image.src=requestresponse1;
+       shareicon.src =  requestresponse2;
+       document.querySelector('#masonary').append(card);
+       document.querySelector('#masonary').appendChild(image);
+       document.querySelector('#masonary').appendChild(shareicon);
+    // image.appendChild(shareicon);
+       card.appendChild(image);
+       card.appendChild(shareicon);
     }
 }
 
@@ -106,11 +121,3 @@ function returntopage()
 {
 
 }
-
-function mouseOver() {
-    document.getElementById("img").style.opacity = 0.3;
-  }
-  
-  function mouseOut() {
-    document.getElementById('img').style.opacity = 1;
-  }
