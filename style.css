@@ -11,7 +11,17 @@ body
   box-sizing: border-box;
 }
 
-#masonary
+.searchbar
+{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  position: relative;
+  margin-top: 12px ;
+  margin-bottom: 12px ;
+}
+
+#masonry
 {  
   columns: 250px;
   column-gap: 20px; 
@@ -20,30 +30,62 @@ body
 #container 
 {
   position: relative;
-  /* display: none; */
+
   height: auto;
   width: 100%;
   margin-bottom: 1rem; 
   margin-left: 1rem;
 }
-
-#sharepicbutton
+#sharebtn
 {
   
-  width: 20%; 
-  height: 20px;
+  display:none;
+  width: 20px; 
+  height: auto;
   position: absolute;
   bottom: 10px;
-  left: 50px;;
+  left: 10px;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
+  border-radius: 50%;
+  padding: 10px;
+  text-align: center;
 }
 
+#likebtn
+{
+  display:none;
+  width: 20px; 
+  height: auto;
+  position: absolute;
+  bottom: 10px;
+  left: 50px;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  border-radius: 50%;
+  padding: 10px;
+  text-align: center;
+}
+#dwlbtn
+{
+  display:none;
+  width: 20px; 
+  height: auto;
+  position: absolute;
+
+  bottom: 10px;
+  left: 90px;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  border-radius: 50%;
+  padding: 10px;
+  text-align: center;
+  
+}
  #images
  { 
    height: auto;
    width: 100%;
-   opacity: 1;
    display: block;
   /* position: absolute;
   top: 50%;
@@ -57,9 +99,19 @@ body
   opacity: 0.3;
 }
 
-#images:hover #sharepicbutton
+#masonry :hover #sharebtn
 {
-  display: inline;
+  display: block;
+}
+
+#masonry :hover #likebtn
+{
+  display: block;
+}
+
+#masonry :hover #dwlbtn
+{
+  display: block;
 }
 
 .pagination
@@ -96,22 +148,9 @@ body
   display: inline;
 }
 
-#nextpage :hover
-{
- color:blue;
-}
-
-#prevpage :hover
-{
- color:blue;
-}
-
-.searchbar
-{
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  position: relative;
-  margin-top: 12px ;
-  margin-bottom: 12px ;
-}
+  #sharebtn:hover {
+  text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+  -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+  transition: all 0.4s ease 0s;
+  }
