@@ -21,7 +21,6 @@ function show()
      for(var i=0;i<piclength;i++)
      {
        let requestresponse1 = request.response[i]['download_url'];
-       let requestresponse2 = request.response[i]['url'];
 
        let card = document.createElement('div');
        card.setAttribute("id" , "container");
@@ -42,7 +41,7 @@ function show()
        dwlicon.innerHTML="⬇";
 
        image.src=requestresponse1;
-       shareicon.src =  requestresponse2;
+ 
        document.querySelector('#masonry').append(card);
        document.querySelector('#masonry').appendChild(image);
        document.querySelector('#masonry').appendChild(shareicon);
@@ -92,7 +91,6 @@ function search()
                 let serversearch = request.response[i]['author'];
                 if(typesearch === serversearch)
                 {
-                    let requestresponse2 = request.response[i]['url'];
                     let requestresponse1 = request.response[i]['download_url'];
                     let card = document.createElement('div');
                     card.setAttribute("id" , "container");
@@ -130,4 +128,19 @@ function search()
             }
         }
     }   
+}
+function copytoclipboard()
+{
+    // var copyText = request.response[i]['download_url'];
+    // copyText.select();
+    // copyText.setSelectionRange(0, 99999)
+    // document.execCommand("copy");
+}
+function like()
+{
+
+}
+function share()
+{
+
 }
