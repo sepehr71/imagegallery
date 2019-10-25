@@ -30,28 +30,46 @@ function show()
 
        let shareicon = document.createElement('button');
        shareicon.setAttribute("id", "sharebtn");
-       shareicon.innerHTML="⤴";
+   
+
+       let sharebtntxt = document.createElement('a');
+       sharebtntxt.setAttribute("id" , "sharebtntxt");
+ //    shareicon.innerHTML="⤴";
 
        let likeicon = document.createElement('button');
        likeicon.setAttribute("id", "likebtn");
-       likeicon.innerHTML="❤";
+    
+
+    let likebtntxt = document.createElement('a');
+       likebtntxt.setAttribute("id" , "likebtntxt");
+//    likeicon.innerHTML="❤";
 
        let dwlicon = document.createElement('button');
        dwlicon.setAttribute("id", "dwlbtn");
-       dwlicon.innerHTML="⬇";
+    
 
-       image.src=requestresponse1;
- 
+    let dwlbtntxt = document.createElement('a');
+       dwlbtntxt.setAttribute("id" , "dwlbtntxt");
+//    dwlicon.innerHTML="⬇";
+
+
+       image.src=requestresponse1; 
        document.querySelector('#masonry').append(card);
        document.querySelector('#masonry').appendChild(image);
        document.querySelector('#masonry').appendChild(shareicon);
+       document.querySelector('#masonry').appendChild(sharebtntxt);
        document.querySelector('#masonry').appendChild(likeicon);
+       document.querySelector('#masonry').appendChild(likebtntxt);
        document.querySelector('#masonry').appendChild(dwlicon);
+       document.querySelector('#masonry').appendChild(dwlbtntxt);
 
        card.appendChild(image);
        card.appendChild(shareicon);
        card.appendChild(likeicon);
        card.appendChild(dwlicon);
+       shareicon.appendChild(sharebtntxt);
+       likeicon.appendChild(likebtntxt);
+       dwlicon.appendChild(dwlbtntxt);
        document.getElementById('lbltipAddedComment').innerHTML = page;
     }
   }
