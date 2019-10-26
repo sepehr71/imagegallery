@@ -1,5 +1,6 @@
 let piclength= 33;
 let page = 1;
+let likearray = [];
 
 function clearpage()
 {
@@ -20,14 +21,12 @@ function show()
     {
      for(var i=0;i<piclength;i++)
      {
-        
         let cardid = i;
         let requestresponse1 = request.response[i]['download_url'];
-
+        
         let card = document.createElement('div');
         card.setAttribute("id" , "container");
         card.setAttribute("class" , cardid);
-    
 
         let image = document.createElement('img');
         image.setAttribute("id","images");
@@ -35,13 +34,11 @@ function show()
         let shareicon = document.createElement('button');
         shareicon.setAttribute("id", "sharebtn");
         shareicon.setAttribute("onclick" , "share()" )
-      
         shareicon.onclick = function()
         {
             share(cardid);
         }
     
-
         let sharebtntxt = document.createElement('a');
         sharebtntxt.setAttribute("id" , "sharebtntxt");
         sharebtntxt.innerHTML="🔺";
@@ -135,12 +132,13 @@ function search()
                 let serversearch = request.response[i]['author'];
                 if(typesearch === serversearch)
                 {
-                    let cardid = i;
+                    let cardid = request.response[i]["id"];
                     let requestresponse1 = request.response[i]['download_url'];
             
                     let card = document.createElement('div');
                     card.setAttribute("id" , "container");
                     card.setAttribute("class" , cardid);
+                
             
                     let image = document.createElement('img');
                     image.setAttribute("id","images");
@@ -148,6 +146,7 @@ function search()
                     let shareicon = document.createElement('button');
                     shareicon.setAttribute("id", "sharebtn");
                     shareicon.setAttribute("onclick" , "share()" )
+                  
                     shareicon.onclick = function()
                     {
                         share(cardid);
@@ -157,11 +156,12 @@ function search()
                     let sharebtntxt = document.createElement('a');
                     sharebtntxt.setAttribute("id" , "sharebtntxt");
                     sharebtntxt.innerHTML="🔺";
-            
-            
+                    sharebtntxt.setAttribute("title" , "copyto clip board");
+                 
                     let likeicon = document.createElement('button');
                     likeicon.setAttribute("id", "likebtn");
                     likeicon.setAttribute("onclick" , "like()" )
+                    likeicon.setAttribute("title" , "like");
                     likeicon.onclick = function()
                     {
                         like(cardid);
@@ -171,11 +171,13 @@ function search()
                     let likebtntxt = document.createElement('a');
                     likebtntxt.setAttribute("id" , "likebtntxt");
                     likebtntxt.innerHTML="💗";
+                    likebtntxt.setAttribute("title" , "like");
             
             
                     let dwlicon = document.createElement('button');
                     dwlicon.setAttribute("id", "dwlbtn");
                     dwlicon.setAttribute("onclick" , "download()" )
+                   
                     dwlicon.onclick = function()
                     {
                         download(cardid);
@@ -185,6 +187,7 @@ function search()
                     let dwlbtntxt = document.createElement('a');
                     dwlbtntxt.setAttribute("id" , "dwlbtntxt");
                     dwlbtntxt.innerHTML="🔻";
+                    dwlbtntxt.setAttribute("title" , "download");
             
             
                     image.src=requestresponse1; 
@@ -204,24 +207,33 @@ function search()
                     shareicon.appendChild(sharebtntxt);
                     likeicon.appendChild(likebtntxt);
                     dwlicon.appendChild(dwlbtntxt);
-                    document.getElementById('lbltipAddedComment').innerHTML = page;          
-                }
+                    document.getElementById('lbltipAddedComment').innerHTML = page; }
             }
         }
     }   
 }
 function download(cardid)
 {
-  
+    
 }
 function like(cardid)
 {
-    
+    let  requestURL = 'https://picsum.photos/id/'+cardid+'/info';
+    let request = new XMLHttpRequest();
+    request.open('GET', requestURL);
+    request.send();
+    request.responseType = 'json';
+    request.onload = function()
+    {
+       let x = request.response[1];
+       console.log(x);
+       sessionStorage.setItem('author',JSON.stringify(x));
+     // console.log(JSON.parse(sessionStorage.getItem('author')));
+    }
 }
 function share(cardid)
 {
-    
-    let  requestURL = 'https://picsum.photos/v2/list?page='+page+'&limit='+piclength;
+    // let  requestURL = 'https://picsum.photos/v2/list?page='+page+'&limit='+piclength;
     // let request = new XMLHttpRequest();
     // request.open('GET', requestURL);
     // request.responseType = 'json';
