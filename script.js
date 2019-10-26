@@ -20,57 +20,83 @@ function show()
     {
      for(var i=0;i<piclength;i++)
      {
-       let requestresponse1 = request.response[i]['download_url'];
+        
+        let cardid = i;
+        let requestresponse1 = request.response[i]['download_url'];
 
-       let card = document.createElement('div');
-       card.setAttribute("id" , "container");
-
-       let image = document.createElement('img');
-       image.setAttribute("id","images");
-
-       let shareicon = document.createElement('button');
-       shareicon.setAttribute("id", "sharebtn");
-   
-
-       let sharebtntxt = document.createElement('a');
-       sharebtntxt.setAttribute("id" , "sharebtntxt");
- //    shareicon.innerHTML="⤴";
-
-       let likeicon = document.createElement('button');
-       likeicon.setAttribute("id", "likebtn");
+        let card = document.createElement('div');
+        card.setAttribute("id" , "container");
+        card.setAttribute("class" , cardid);
     
 
-    let likebtntxt = document.createElement('a');
-       likebtntxt.setAttribute("id" , "likebtntxt");
-//    likeicon.innerHTML="❤";
+        let image = document.createElement('img');
+        image.setAttribute("id","images");
 
-       let dwlicon = document.createElement('button');
-       dwlicon.setAttribute("id", "dwlbtn");
+        let shareicon = document.createElement('button');
+        shareicon.setAttribute("id", "sharebtn");
+        shareicon.setAttribute("onclick" , "share()" )
+      
+        shareicon.onclick = function()
+        {
+            share(cardid);
+        }
     
 
-    let dwlbtntxt = document.createElement('a');
-       dwlbtntxt.setAttribute("id" , "dwlbtntxt");
-//    dwlicon.innerHTML="⬇";
+        let sharebtntxt = document.createElement('a');
+        sharebtntxt.setAttribute("id" , "sharebtntxt");
+        sharebtntxt.innerHTML="🔺";
+        sharebtntxt.setAttribute("title" , "copyto clip board");
+     
+        let likeicon = document.createElement('button');
+        likeicon.setAttribute("id", "likebtn");
+        likeicon.setAttribute("onclick" , "like()" )
+        likeicon.setAttribute("title" , "like");
+        likeicon.onclick = function()
+        {
+            like(cardid);
+        }
+        
+
+        let likebtntxt = document.createElement('a');
+        likebtntxt.setAttribute("id" , "likebtntxt");
+        likebtntxt.innerHTML="💗";
+        likebtntxt.setAttribute("title" , "like");
 
 
-       image.src=requestresponse1; 
-       document.querySelector('#masonry').append(card);
-       document.querySelector('#masonry').appendChild(image);
-       document.querySelector('#masonry').appendChild(shareicon);
-       document.querySelector('#masonry').appendChild(sharebtntxt);
-       document.querySelector('#masonry').appendChild(likeicon);
-       document.querySelector('#masonry').appendChild(likebtntxt);
-       document.querySelector('#masonry').appendChild(dwlicon);
-       document.querySelector('#masonry').appendChild(dwlbtntxt);
+        let dwlicon = document.createElement('button');
+        dwlicon.setAttribute("id", "dwlbtn");
+        dwlicon.setAttribute("onclick" , "download()" )
+       
+        dwlicon.onclick = function()
+        {
+            download(cardid);
+        }
+        
 
-       card.appendChild(image);
-       card.appendChild(shareicon);
-       card.appendChild(likeicon);
-       card.appendChild(dwlicon);
-       shareicon.appendChild(sharebtntxt);
-       likeicon.appendChild(likebtntxt);
-       dwlicon.appendChild(dwlbtntxt);
-       document.getElementById('lbltipAddedComment').innerHTML = page;
+        let dwlbtntxt = document.createElement('a');
+        dwlbtntxt.setAttribute("id" , "dwlbtntxt");
+        dwlbtntxt.innerHTML="🔻";
+        dwlbtntxt.setAttribute("title" , "download");
+
+
+        image.src=requestresponse1; 
+        document.querySelector('#masonry').append(card);
+        document.querySelector('#masonry').appendChild(image);
+        document.querySelector('#masonry').appendChild(shareicon);
+        document.querySelector('#masonry').appendChild(sharebtntxt);
+        document.querySelector('#masonry').appendChild(likeicon);
+        document.querySelector('#masonry').appendChild(likebtntxt);
+        document.querySelector('#masonry').appendChild(dwlicon);
+        document.querySelector('#masonry').appendChild(dwlbtntxt);
+
+        card.appendChild(image);
+        card.appendChild(shareicon);
+        card.appendChild(likeicon);
+        card.appendChild(dwlicon);
+        shareicon.appendChild(sharebtntxt);
+        likeicon.appendChild(likebtntxt);
+        dwlicon.appendChild(dwlbtntxt);
+        document.getElementById('lbltipAddedComment').innerHTML = page;
     }
   }
 }
@@ -109,56 +135,102 @@ function search()
                 let serversearch = request.response[i]['author'];
                 if(typesearch === serversearch)
                 {
+                    let cardid = i;
                     let requestresponse1 = request.response[i]['download_url'];
+            
                     let card = document.createElement('div');
                     card.setAttribute("id" , "container");
-
+                    card.setAttribute("class" , cardid);
+            
                     let image = document.createElement('img');
                     image.setAttribute("id","images");
-
+            
                     let shareicon = document.createElement('button');
                     shareicon.setAttribute("id", "sharebtn");
-                    shareicon.innerHTML="⤴";
-
+                    shareicon.setAttribute("onclick" , "share()" )
+                    shareicon.onclick = function()
+                    {
+                        share(cardid);
+                    }
+                
+            
+                    let sharebtntxt = document.createElement('a');
+                    sharebtntxt.setAttribute("id" , "sharebtntxt");
+                    sharebtntxt.innerHTML="🔺";
+            
+            
                     let likeicon = document.createElement('button');
                     likeicon.setAttribute("id", "likebtn");
-                    likeicon.innerHTML="❤";
-
+                    likeicon.setAttribute("onclick" , "like()" )
+                    likeicon.onclick = function()
+                    {
+                        like(cardid);
+                    }
+                    
+            
+                    let likebtntxt = document.createElement('a');
+                    likebtntxt.setAttribute("id" , "likebtntxt");
+                    likebtntxt.innerHTML="💗";
+            
+            
                     let dwlicon = document.createElement('button');
                     dwlicon.setAttribute("id", "dwlbtn");
-                    dwlicon.innerHTML="⬇";
-
-                    image.src=requestresponse1;
-                    shareicon.src =  requestresponse2;
+                    dwlicon.setAttribute("onclick" , "download()" )
+                    dwlicon.onclick = function()
+                    {
+                        download(cardid);
+                    }
+                    
+            
+                    let dwlbtntxt = document.createElement('a');
+                    dwlbtntxt.setAttribute("id" , "dwlbtntxt");
+                    dwlbtntxt.innerHTML="🔻";
+            
+            
+                    image.src=requestresponse1; 
                     document.querySelector('#masonry').append(card);
                     document.querySelector('#masonry').appendChild(image);
                     document.querySelector('#masonry').appendChild(shareicon);
+                    document.querySelector('#masonry').appendChild(sharebtntxt);
                     document.querySelector('#masonry').appendChild(likeicon);
+                    document.querySelector('#masonry').appendChild(likebtntxt);
                     document.querySelector('#masonry').appendChild(dwlicon);
-
+                    document.querySelector('#masonry').appendChild(dwlbtntxt);
+            
                     card.appendChild(image);
                     card.appendChild(shareicon);
                     card.appendChild(likeicon);
                     card.appendChild(dwlicon);
-                    document.getElementById('lbltipAddedComment').innerHTML = page;
-                
+                    shareicon.appendChild(sharebtntxt);
+                    likeicon.appendChild(likebtntxt);
+                    dwlicon.appendChild(dwlbtntxt);
+                    document.getElementById('lbltipAddedComment').innerHTML = page;          
                 }
             }
         }
     }   
 }
-function copytoclipboard()
+function download(cardid)
 {
-    // var copyText = request.response[i]['download_url'];
-    // copyText.select();
-    // copyText.setSelectionRange(0, 99999)
-    // document.execCommand("copy");
+  
 }
-function like()
+function like(cardid)
 {
-
+    
 }
-function share()
+function share(cardid)
 {
-
-}
+    
+    let  requestURL = 'https://picsum.photos/v2/list?page='+page+'&limit='+piclength;
+    // let request = new XMLHttpRequest();
+    // request.open('GET', requestURL);
+    // request.responseType = 'json';
+    // request.send();
+    // request.onload = function()
+    // {
+    //         var copyText = document.getElementsByClassName(cardid);
+    //         copyText.select();
+    //         copyText.setSelectionRange(0, 99999);
+    //         document.execCommand("copy");
+    // }
+} 
