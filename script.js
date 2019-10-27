@@ -21,15 +21,21 @@ function show()
     {
      for(var i=0;i<piclength;i++)
      {
-        let cardid = i;
+        let cardid = i+"p"+page;
+        // let cardclass = i;
+        
         let requestresponse1 = request.response[i]['download_url'];
         
         let card = document.createElement('div');
         card.setAttribute("id" , "container");
         card.setAttribute("class" , cardid);
-
+        
         let image = document.createElement('img');
         image.setAttribute("id","images");
+        
+        let star = document.createElement('label');
+        star.setAttribute("class" , "star");
+        star.setAttribute("id" , cardid);
 
         let shareicon = document.createElement('button');
         shareicon.setAttribute("id", "sharebtn");
@@ -53,28 +59,24 @@ function show()
             like(cardid);
         }
         
-
         let likebtntxt = document.createElement('a');
         likebtntxt.setAttribute("id" , "likebtntxt");
         likebtntxt.innerHTML="💗";
         likebtntxt.setAttribute("title" , "like");
 
-
         let dwlicon = document.createElement('button');
         dwlicon.setAttribute("id", "dwlbtn");
-        dwlicon.setAttribute("onclick" , "download()" )
+        dwlicon.setAttribute("onclick" , "download()");
        
         dwlicon.onclick = function()
         {
             download(cardid);
         }
         
-
         let dwlbtntxt = document.createElement('a');
         dwlbtntxt.setAttribute("id" , "dwlbtntxt");
         dwlbtntxt.innerHTML="🔻";
         dwlbtntxt.setAttribute("title" , "download");
-
 
         image.src=requestresponse1; 
         document.querySelector('#masonry').append(card);
@@ -85,19 +87,32 @@ function show()
         document.querySelector('#masonry').appendChild(likebtntxt);
         document.querySelector('#masonry').appendChild(dwlicon);
         document.querySelector('#masonry').appendChild(dwlbtntxt);
+        document.querySelector('#masonry').appendChild(star);
 
         card.appendChild(image);
         card.appendChild(shareicon);
         card.appendChild(likeicon);
         card.appendChild(dwlicon);
+        card.appendChild(star);
+        
         shareicon.appendChild(sharebtntxt);
         likeicon.appendChild(likebtntxt);
         dwlicon.appendChild(dwlbtntxt);
         document.getElementById('lbltipAddedComment').innerHTML = page;
+
+        for(var i=0 , len=localStorage;i<len ; i++)
+        {
+            // console.log(localStorage[i]);
+
+        }
     }
   }
 }
-
+function like(cardclass)
+{
+    // localStorage.clear();
+      localStorage.setItem(cardid,cardid);
+}
 function nextpage()
 {
     if(page==10){page=0;}
@@ -138,21 +153,19 @@ function search()
                     let card = document.createElement('div');
                     card.setAttribute("id" , "container");
                     card.setAttribute("class" , cardid);
-                
-            
+                    
                     let image = document.createElement('img');
                     image.setAttribute("id","images");
-            
+                    
                     let shareicon = document.createElement('button');
                     shareicon.setAttribute("id", "sharebtn");
                     shareicon.setAttribute("onclick" , "share()" )
-                  
+                    
                     shareicon.onclick = function()
                     {
                         share(cardid);
                     }
                 
-            
                     let sharebtntxt = document.createElement('a');
                     sharebtntxt.setAttribute("id" , "sharebtntxt");
                     sharebtntxt.innerHTML="🔺";
@@ -167,12 +180,10 @@ function search()
                         like(cardid);
                     }
                     
-            
                     let likebtntxt = document.createElement('a');
                     likebtntxt.setAttribute("id" , "likebtntxt");
                     likebtntxt.innerHTML="💗";
                     likebtntxt.setAttribute("title" , "like");
-            
             
                     let dwlicon = document.createElement('button');
                     dwlicon.setAttribute("id", "dwlbtn");
@@ -189,7 +200,6 @@ function search()
                     dwlbtntxt.innerHTML="🔻";
                     dwlbtntxt.setAttribute("title" , "download");
             
-            
                     image.src=requestresponse1; 
                     document.querySelector('#masonry').append(card);
                     document.querySelector('#masonry').appendChild(image);
@@ -199,11 +209,12 @@ function search()
                     document.querySelector('#masonry').appendChild(likebtntxt);
                     document.querySelector('#masonry').appendChild(dwlicon);
                     document.querySelector('#masonry').appendChild(dwlbtntxt);
-            
+                   
                     card.appendChild(image);
                     card.appendChild(shareicon);
                     card.appendChild(likeicon);
                     card.appendChild(dwlicon);
+                
                     shareicon.appendChild(sharebtntxt);
                     likeicon.appendChild(likebtntxt);
                     dwlicon.appendChild(dwlbtntxt);
@@ -216,21 +227,7 @@ function download(cardid)
 {
     
 }
-function like(cardid)
-{
-    let  requestURL = 'https://picsum.photos/id/'+cardid+'/info';
-    let request = new XMLHttpRequest();
-    request.open('GET', requestURL);
-    request.send();
-    request.responseType = 'json';
-    request.onload = function()
-    {
-       let x = request.response[1];
-       console.log(x);
-       sessionStorage.setItem('author',JSON.stringify(x));
-     // console.log(JSON.parse(sessionStorage.getItem('author')));
-    }
-}
+
 function share(cardid)
 {
     // let  requestURL = 'https://picsum.photos/v2/list?page='+page+'&limit='+piclength;

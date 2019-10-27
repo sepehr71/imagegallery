@@ -52,16 +52,19 @@ body
 #sharebtn:hover
 {
   border: 1px solid white;
+  border-radius: 50%;
 }
 
 #likebtn:hover
 {
   border: 1px solid white;
+  border-radius: 50%;
 }
 
 #dwlbtn:hover
 {
   border: 1px solid white;
+  border-radius: 50%;
 }
 
 #sharebtn
@@ -77,7 +80,7 @@ body
   cursor:pointer;
   overflow: hidden;
   outline:none;
-  padding: 1px;
+  padding: 3px;
   border: none;
 }
 
@@ -94,7 +97,7 @@ body
   cursor:pointer;
   overflow: hidden;
   outline:none;
-  padding: 1px;
+  padding: 3px;
   border: none;
 }
 
@@ -111,10 +114,19 @@ body
   cursor:pointer;
   overflow: hidden;
   outline:none;
-  padding: 1px;
+  padding: 3px;
   border: none;
 }
-
+.star
+{
+  display:none;
+  position: absolute;
+  top: 5%;
+  right: 0%;
+  padding: 3px;
+  border: none;
+  font-size: 20px;
+}
  #images
  { 
    height: auto;
