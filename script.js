@@ -6,6 +6,7 @@ function clearpage()
 {
     var elem = document.querySelector('#masonry').innerHTML="";
 }
+
 function prepare()
 {
     
@@ -23,7 +24,7 @@ function show()
     {
       for(var i=0;i<piclength;i++)
       {
-
+      
         let cardid = i+"p"+page;
         let cardcounter=i;
         let requestresponse1 = request.response[i]['download_url'];
@@ -102,9 +103,7 @@ function show()
         {
             $(".loader").hide();
         })
-
-      
-          
+    
         document.getElementById('lbltipAddedComment').innerHTML = page;
         
         let bookmark= localStorage.getItem(cardid);
@@ -115,24 +114,26 @@ function show()
     }
   }
 }
+
 function download(cardid)
 {
     
 }
+
 function share(cardid,cardcounter)
 {
-    // let  requestURL = 'https://picsum.photos/v2/list?page='+page+'&limit='+piclength;
-    // let request = new XMLHttpRequest();
-    // request.open('GET', requestURL);
-    // request.responseType = 'json';
-    // request.send();
-    // request.onload = function()
-    // {
-    //     let requestresponse = request.response[cardcounter]['download_url'];
-    //    let dummy = requestresponse.select();
-    //     dummy.execCommand('copy');
-    // } 
+    let  requestURL = 'https://picsum.photos/v2/list?page='+page+'&limit='+piclength;
+    let request = new XMLHttpRequest();
+    request.open('GET', requestURL);
+    request.responseType = 'json';
+    request.send();
+    request.onload = function()
+    {
+        let textToCopy = request.response[cardcounter]['download_url'];
+          navigator.clipboard.writeText(textToCopy);
+    }
 }
+
 function like(cardid)
 {
     if(localStorage.getItem(cardid)!=null)
@@ -146,6 +147,7 @@ function like(cardid)
       document.getElementById(cardid).style.display='block';
    }
 }
+
 function nextpage()
 {
     if(page==10){page=0;}
@@ -153,7 +155,6 @@ function nextpage()
     page++;
     show();
 }
-
 
 function prevpage()
 {
@@ -256,5 +257,3 @@ function search()
         }
     }   
 }
-
-
