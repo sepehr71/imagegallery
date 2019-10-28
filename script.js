@@ -22,7 +22,7 @@ function show()
      for(var i=0;i<piclength;i++)
      {
         let cardid = i+"p"+page;
-        // let cardclass = i;
+        let cardcounter=i;
         
         let requestresponse1 = request.response[i]['download_url'];
         
@@ -36,57 +36,46 @@ function show()
         let star = document.createElement('label');
         star.setAttribute("class" , "star");
         star.setAttribute("id" , cardid);
+        star.innerHTML='⭐';
 
         let shareicon = document.createElement('button');
         shareicon.setAttribute("id", "sharebtn");
         shareicon.setAttribute("onclick" , "share()" )
+        shareicon.innerHTML="🔺";
+        shareicon.setAttribute("title" , "copyto clip board");
         shareicon.onclick = function()
         {
-            share(cardid);
+            share(cardid,cardcounter);
         }
     
-        let sharebtntxt = document.createElement('a');
-        sharebtntxt.setAttribute("id" , "sharebtntxt");
-        sharebtntxt.innerHTML="🔺";
-        sharebtntxt.setAttribute("title" , "copyto clip board");
-     
         let likeicon = document.createElement('button');
         likeicon.setAttribute("id", "likebtn");
         likeicon.setAttribute("onclick" , "like()" )
         likeicon.setAttribute("title" , "like");
+        likeicon.innerHTML="💗";
+
         likeicon.onclick = function()
         {
             like(cardid);
         }
         
-        let likebtntxt = document.createElement('a');
-        likebtntxt.setAttribute("id" , "likebtntxt");
-        likebtntxt.innerHTML="💗";
-        likebtntxt.setAttribute("title" , "like");
-
         let dwlicon = document.createElement('button');
         dwlicon.setAttribute("id", "dwlbtn");
         dwlicon.setAttribute("onclick" , "download()");
+        dwlicon.innerHTML="🔻";
+        dwlicon.setAttribute("title" , "download");
        
         dwlicon.onclick = function()
         {
             download(cardid);
         }
         
-        let dwlbtntxt = document.createElement('a');
-        dwlbtntxt.setAttribute("id" , "dwlbtntxt");
-        dwlbtntxt.innerHTML="🔻";
-        dwlbtntxt.setAttribute("title" , "download");
-
         image.src=requestresponse1; 
         document.querySelector('#masonry').append(card);
         document.querySelector('#masonry').appendChild(image);
         document.querySelector('#masonry').appendChild(shareicon);
-        document.querySelector('#masonry').appendChild(sharebtntxt);
         document.querySelector('#masonry').appendChild(likeicon);
-        document.querySelector('#masonry').appendChild(likebtntxt);
         document.querySelector('#masonry').appendChild(dwlicon);
-        document.querySelector('#masonry').appendChild(dwlbtntxt);
         document.querySelector('#masonry').appendChild(star);
 
         card.appendChild(image);
@@ -95,23 +84,43 @@ function show()
         card.appendChild(dwlicon);
         card.appendChild(star);
         
-        shareicon.appendChild(sharebtntxt);
-        likeicon.appendChild(likebtntxt);
-        dwlicon.appendChild(dwlbtntxt);
         document.getElementById('lbltipAddedComment').innerHTML = page;
-
-        for(var i=0 , len=localStorage;i<len ; i++)
+        
+        let bookmark= localStorage.getItem(cardid);
+        if(bookmark==cardid)
         {
-            // console.log(localStorage[i]);
-
+            document.getElementById(cardid).style.display='block';
         }
     }
   }
 }
-function like(cardclass)
+function share(cardid,cardcounter)
 {
-    // localStorage.clear();
-      localStorage.setItem(cardid,cardid);
+    // let  requestURL = 'https://picsum.photos/v2/list?page='+page+'&limit='+piclength;
+    // let request = new XMLHttpRequest();
+    // request.open('GET', requestURL);
+    // request.responseType = 'json';
+    // request.send();
+    // request.onload = function()
+    // {
+    //     let requestresponse1 = request.response[cardcounter]['download_url'];
+    //     var copyText =requestresponse1;
+    //     copyText.select();
+    //     document.execCommand("copy");
+    //     document.querySelector("#copy").addEventListener("click", copy)
+    } 
+
+function like(cardid)
+{
+ 
+    localStorage.setItem(cardid,cardid);
+    document.getElementById(cardid).style.display='block';
+    if(localStorage.getItem(cardid)!=null)
+    {
+        localStorage.removeItem(cardid);
+        document.getElementById(cardid).style.display='none';
+    }
+    
 }
 function nextpage()
 {
@@ -120,6 +129,7 @@ function nextpage()
     page++;
     show();
 }
+
 
 function prevpage()
 {
@@ -228,18 +238,3 @@ function download(cardid)
     
 }
 
-function share(cardid)
-{
-    // let  requestURL = 'https://picsum.photos/v2/list?page='+page+'&limit='+piclength;
-    // let request = new XMLHttpRequest();
-    // request.open('GET', requestURL);
-    // request.responseType = 'json';
-    // request.send();
-    // request.onload = function()
-    // {
-    //         var copyText = document.getElementsByClassName(cardid);
-    //         copyText.select();
-    //         copyText.setSelectionRange(0, 99999);
-    //         document.execCommand("copy");
-    // }
-} 
