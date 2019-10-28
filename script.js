@@ -10,6 +10,7 @@ function prepare()
 {
     
 }
+
 function show()
 {
     let  requestURL = 'https://picsum.photos/v2/list?page='+page+'&limit='+piclength;
@@ -17,19 +18,25 @@ function show()
     request.open('GET', requestURL);
     request.responseType = 'json';
     request.send();
+
     request.onload = function()
     {
-     for(var i=0;i<piclength;i++)
-     {
+      for(var i=0;i<piclength;i++)
+      {
+
         let cardid = i+"p"+page;
         let cardcounter=i;
-        
         let requestresponse1 = request.response[i]['download_url'];
         
+        let loader = document.createElement('div');
+        loader.setAttribute("class" , "loader");
+        document.querySelector('#masonry').appendChild(loader);
+
         let card = document.createElement('div');
         card.setAttribute("id" , "container");
         card.setAttribute("class" , cardid);
-        
+        // card.appendChild(loader);
+
         let image = document.createElement('img');
         image.setAttribute("id","images");
         
@@ -37,6 +44,7 @@ function show()
         star.setAttribute("class" , "star");
         star.setAttribute("id" , cardid);
         star.innerHTML='⭐';
+        star.setAttribute("title" , "you have liked this");
 
         let shareicon = document.createElement('button');
         shareicon.setAttribute("id", "sharebtn");
@@ -53,7 +61,6 @@ function show()
         likeicon.setAttribute("onclick" , "like()" )
         likeicon.setAttribute("title" , "like");
         likeicon.innerHTML="💗";
-
         likeicon.onclick = function()
         {
             like(cardid);
@@ -63,27 +70,41 @@ function show()
         dwlicon.setAttribute("id", "dwlbtn");
         dwlicon.setAttribute("onclick" , "download()");
         dwlicon.innerHTML="🔻";
-        dwlicon.setAttribute("title" , "download");
-       
+        dwlicon.setAttribute("title" , "download"); 
         dwlicon.onclick = function()
         {
             download(cardid);
         }
         
         image.src=requestresponse1; 
+        
         document.querySelector('#masonry').append(card);
         document.querySelector('#masonry').appendChild(image);
         document.querySelector('#masonry').appendChild(shareicon);
         document.querySelector('#masonry').appendChild(likeicon);
         document.querySelector('#masonry').appendChild(dwlicon);
         document.querySelector('#masonry').appendChild(star);
-
+       
+  
         card.appendChild(image);
         card.appendChild(shareicon);
         card.appendChild(likeicon);
         card.appendChild(dwlicon);
         card.appendChild(star);
+       
         
+        $(document).load(function()
+        {
+            $(".loader").fadeOut(2000);
+        })
+
+        $(document).ready(function()
+        {
+            $(".loader").hide();
+        })
+
+      
+          
         document.getElementById('lbltipAddedComment').innerHTML = page;
         
         let bookmark= localStorage.getItem(cardid);
@@ -94,6 +115,10 @@ function show()
     }
   }
 }
+function download(cardid)
+{
+    
+}
 function share(cardid,cardcounter)
 {
     // let  requestURL = 'https://picsum.photos/v2/list?page='+page+'&limit='+piclength;
@@ -103,24 +128,23 @@ function share(cardid,cardcounter)
     // request.send();
     // request.onload = function()
     // {
-    //     let requestresponse1 = request.response[cardcounter]['download_url'];
-    //     var copyText =requestresponse1;
-    //     copyText.select();
-    //     document.execCommand("copy");
-    //     document.querySelector("#copy").addEventListener("click", copy)
-    } 
-
+    //     let requestresponse = request.response[cardcounter]['download_url'];
+    //    let dummy = requestresponse.select();
+    //     dummy.execCommand('copy');
+    // } 
+}
 function like(cardid)
 {
- 
-    localStorage.setItem(cardid,cardid);
-    document.getElementById(cardid).style.display='block';
     if(localStorage.getItem(cardid)!=null)
     {
         localStorage.removeItem(cardid);
         document.getElementById(cardid).style.display='none';
     }
-    
+    else
+    {
+      localStorage.setItem(cardid,cardid);
+      document.getElementById(cardid).style.display='block';
+   }
 }
 function nextpage()
 {
@@ -175,7 +199,7 @@ function search()
                     {
                         share(cardid);
                     }
-                
+                    
                     let sharebtntxt = document.createElement('a');
                     sharebtntxt.setAttribute("id" , "sharebtntxt");
                     sharebtntxt.innerHTML="🔺";
@@ -204,12 +228,11 @@ function search()
                         download(cardid);
                     }
                     
-            
                     let dwlbtntxt = document.createElement('a');
                     dwlbtntxt.setAttribute("id" , "dwlbtntxt");
                     dwlbtntxt.innerHTML="🔻";
                     dwlbtntxt.setAttribute("title" , "download");
-            
+                    
                     image.src=requestresponse1; 
                     document.querySelector('#masonry').append(card);
                     document.querySelector('#masonry').appendChild(image);
@@ -233,8 +256,5 @@ function search()
         }
     }   
 }
-function download(cardid)
-{
-    
-}
+
 
