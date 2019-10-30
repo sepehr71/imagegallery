@@ -106,8 +106,8 @@ function show()
     
         document.getElementById('lbltipAddedComment').innerHTML = page;
         
-        let bookmark= localStorage.getItem(cardid);
-        if(bookmark==cardid)
+        let bookmark = localStorage.getItem(cardid);
+        if(bookmark == 'liked')
         {
             document.getElementById(cardid).style.display='block';
         }
@@ -117,7 +117,7 @@ function show()
 
 function download(cardid)
 {
-    
+      
 }
 
 function share(cardid,cardcounter)
@@ -136,14 +136,14 @@ function share(cardid,cardcounter)
 
 function like(cardid)
 {
-    if(localStorage.getItem(cardid)!=null)
+    if(localStorage.getItem(cardid) == 'liked')
     {
         localStorage.removeItem(cardid);
         document.getElementById(cardid).style.display='none';
     }
     else
     {
-      localStorage.setItem(cardid,cardid);
+      localStorage.setItem(cardid,'liked');
       document.getElementById(cardid).style.display='block';
    }
 }
