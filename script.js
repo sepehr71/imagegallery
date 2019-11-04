@@ -1,8 +1,6 @@
-let piclength = 20;
+let piclength = 10;
 let xfactor = 5;
 let capacity = 20;
-// let page=1;
-// sessionStorage.setItem("page1",page);
 
 function clearpage() {
     var elem = document.querySelector('#masonry').innerHTML = "";
@@ -92,6 +90,7 @@ function render(cardid, cardcounter, requestresponse1) {
 
 
 function show() {
+
     clearpage();
     let page = sessionStorage.getItem('page1');
     console.log(page);
@@ -128,20 +127,19 @@ function show() {
         let counter = page;
         xfactor = page;
 
-        if (page <= 18) {
-            xfactor++; xfactor++;
-        }
+        if (page >= 1 && page <= 3 || page==null) {
+            counter = 1;
+            xfactor = Number(xfactor) + Number(4);
 
-        if (page >= 2) {
-            counter--; 
         }
-        else if (page>2)
-        {
-            counter--; 
-            counter--; 
+        else if (page > 3 && page <= 17) {
+            counter = Number(counter) - Number(2);
+            xfactor = Number(xfactor) + Number(2);
         }
-        
-       
+        else if (page > 17) {
+             xfactor=20;
+             counter= Number(counter)- Number(4)
+        }
 
         for (let i = counter; i <= xfactor; i++) {
             if (i !== null) {
